@@ -1,0 +1,107 @@
+.menu-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  height: 20px;
+  width: 28px;
+  cursor: pointer;
+  @include transition-ease;
+  &__burger {
+    position: absolute;
+    right: 0;
+    top: 0.5rem;
+    width: 100%;
+    height: 3px;
+    background: set-text-color($primary-color);
+    @include transition-ease;
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: -8px;
+      left: 0;
+      background: set-text-color($primary-color);
+      width: 100%;
+      height: 100%;
+      @include transition-ease;
+    }
+    &::after {
+      top: 8px;
+      width: 75%;
+    }
+    &.open {
+      rotate: 720deg;
+      background: transparent;
+
+      &::before {
+        rotate: 45deg;
+        translate: 5px 8px;
+      }
+      &::after {
+        width: 100%;
+        rotate: -45deg;
+        translate: 3px -7px;
+      }
+    }
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  opacity: 0.98;
+  visibility: hidden;
+
+  &.open {
+    visibility: visible;
+  }
+  .nav-menu {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: $primary-color;
+    list-style-type: none;
+    padding-right: 1rem;
+    translate: 0 -100%;
+    @include transition-ease;
+
+    &.open {
+      translate: 0 0;
+    }
+
+    &__item {
+      translate: 100vw 0;
+      @include transition-ease;
+      &.open {
+        translate: 0 0;
+      }
+      &.active > a {
+        color: $secondary-color;
+      }
+    }
+    &__link {
+      display: inline-block;
+      font-size: 2rem;
+      text-transform: uppercase;
+      padding: 2rem;
+      font-weight: 300;
+      @include transition-ease;
+      &:hover {
+        color: $secondary-color;
+      }
+    }
+  }
+}
+
+@for $i from 1 through 4 {
+  .nav-menu__item:nth-child(#{$i}) {
+    transition-delay: ($i * 0.1s) + 0.15s;
+  }
+}
